@@ -23,3 +23,6 @@ class Parser(ABC):
 
     @abstractmethod
     async def get_href(self, item, selector): ...
+
+    @abstractmethod
+    async def get_item_text_without_selector(self, item): ...

@@ -56,3 +56,6 @@ class PlaywrightParser(Parser):
     async def get_href(self, item, selector):
         el = await item.query_selector(selector)
         return await el.get_attribute("href") if el else None
+
+    async def get_item_text_without_selector(self, item):
+        return await item.inner_text()

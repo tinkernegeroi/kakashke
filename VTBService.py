@@ -16,12 +16,12 @@ class VTBService():
 
         for page_n in range(1, int(last_page) + 1):
             target_url = f"{self.base_url}={page_n}"
-            await self.parser.go_to_page(target_url)
-            page_results = await self.parse_page()
+            page_results = await self.parse_page(target_url)
             results.extend(page_results)
         return results
 
-    async def parse_page(self):
+    async def parse_page(self, url):
+        await self.parser.go_to_page(url)
         await self.parser.wait_for_selector(".t-market-section")
         items = await self.parser.get_all_by_selector(".t-market-item")
         results = []
