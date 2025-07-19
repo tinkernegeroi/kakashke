@@ -31,3 +31,11 @@ class GazpromService():
             })
 
         return results
+
+    async def parse_n_pages(self, url, n):
+        data = []
+        for page_n in range(1, n+1):
+            target_url = url + "&page=" + str(page_n)
+            result = await self.parse_page(target_url)
+            data.extend(result)
+        return data

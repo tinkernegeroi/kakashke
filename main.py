@@ -20,7 +20,7 @@ async def main():
     async with PlaywrightParser(gazprom_baze_url) as parser:
         handler = GazpromHandler()
         service = GazpromService(parser, handler, gazprom_baze_url)
-        data = await service.parse_page(gazprom_baze_url)
+        data = await service.parse_n_pages(gazprom_baze_url, 5)
         for car in data:
             print(car)
 
