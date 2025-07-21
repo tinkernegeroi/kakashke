@@ -5,7 +5,7 @@ from GazpromService import GazpromService
 from VTBHandler import VTBHandler
 from VTBService import VTBService
 from PlaywrightParser import PlaywrightParser
-from TgService import TgParser
+from TgService import TgService
 
 
 async def main():
@@ -28,7 +28,7 @@ async def main():
 
     async with PlaywrightParser(alfa_url) as parser:
         handler = VTBHandler()
-        tg_parser = TgParser(parser, handler)
+        tg_parser = TgService(parser, handler)
         await tg_parser.parse_page(alfa_url)
 if __name__ == "__main__":
     asyncio.run(main())

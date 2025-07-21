@@ -57,4 +57,4 @@ class PlaywrightParser(Parser):
         return await item.inner_text()
 
     async def scroll_up(self):
-        await self.page.evaluate("window.scrollTo(0, 0)")
+        await self.page.evaluate("window.scrollTo(0, -100000)")
