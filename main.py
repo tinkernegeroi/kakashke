@@ -5,11 +5,13 @@ from GazpromService import GazpromService
 from VTBHandler import VTBHandler
 from VTBService import VTBService
 from PlaywrightParser import PlaywrightParser
+from TgService import TgParser
 
 
 async def main():
     vtb_base_url = "https://www.vtb-leasing.ru/auto-market/f/type-is-4/?PAGEN_1"
     gazprom_baze_url = "https://autogpbl.ru/avtomobili-i-tekhnika-s-probegom/?filter-type=4"
+    alfa_url = "https://t.me/s/alfaleasing_probeg"
     # async with PlaywrightParser(vtb_base_url) as parser:
     #     handler = VTBHandler()
     #     service = VTBService(parser, handler, vtb_base_url)
@@ -17,12 +19,16 @@ async def main():
     #     for car in data:
     #         print(car)
 
-    async with PlaywrightParser(gazprom_baze_url) as parser:
-        handler = GazpromHandler()
-        service = GazpromService(parser, handler, gazprom_baze_url)
-        data = await service.parse_n_pages(gazprom_baze_url, 5)
-        for car in data:
-            print(car)
+    # async with PlaywrightParser(gazprom_baze_url) as parser:
+    #     handler = GazpromHandler()
+    #     service = GazpromService(parser, handler, gazprom_baze_url)
+    #     data = await service.parse_n_pages(gazprom_baze_url, 5)
+    #     for car in data:
+    #         print(car)
 
+    async with PlaywrightParser(alfa_url) as parser:
+        handler = VTBHandler()
+        tg_parser = TgParser(parser, handler)
+        await tg_parser.parse_page(alfa_url)
 if __name__ == "__main__":
     asyncio.run(main())

@@ -1,5 +1,5 @@
 from playwright.async_api import async_playwright
-
+import asyncio
 from Parser import Parser
 
 
@@ -16,11 +16,7 @@ class PlaywrightParser(Parser):
         self.browser = await self.playwright.chromium.launch(headless=False)
         self.context = await self.browser.new_context()
         self.page = await self.context.new_page()
-        await self.page.goto(self.base_url, timeout=60000)
-        try:
-            await self.page.click("a:has-text('Хорошо')")
-        except:
-            ...
+        await self.page.goto(self.base_url, timeout=10000)
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
@@ -59,3 +55,6 @@ class PlaywrightParser(Parser):
 
     async def get_item_text_without_selector(self, item):
         return await item.inner_text()
+
+    async def scroll_up(self):
+        await self.page.evaluate("window.scrollTo(0, 0)")

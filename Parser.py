@@ -26,3 +26,6 @@ class Parser(ABC):
 
     @abstractmethod
     async def get_item_text_without_selector(self, item): ...
+
+    @abstractmethod
+    async def scroll_up(self): ...
