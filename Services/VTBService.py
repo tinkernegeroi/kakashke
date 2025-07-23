@@ -14,7 +14,7 @@ class VTBService():
             "#auto-list-cards-3 > div > div.t-market-section > div.t-page-navigation > div.t-pager-item.last > a"
         )
 
-        for page_n in range(1, int(last_page) + 1):
+        for page_n in range(1, 10 + 1):
             target_url = f"{self.base_url}={page_n}"
             page_results = await self.parse_page(target_url)
             results.extend(page_results)
