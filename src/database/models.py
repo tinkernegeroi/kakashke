@@ -1,7 +1,4 @@
-from datetime import datetime
-
 from sqlalchemy.orm import Mapped, mapped_column
-
 from src.database.base import Base
 
 
@@ -13,7 +10,6 @@ class Car(Base):
     monthly_price: Mapped[int] = mapped_column(nullable=True)
     mileage: Mapped[int] = mapped_column(nullable=True)
     url: Mapped[str] = mapped_column(index=True)
-    created_at: Mapped[datetime] = mapped_column(default=datetime.now)
 
 
 class Filter(Base):
