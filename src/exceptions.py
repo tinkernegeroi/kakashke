@@ -1,4 +1,4 @@
-from src.typess import ID
+from src.Types import ID
 
 
 class AppException(Exception):
