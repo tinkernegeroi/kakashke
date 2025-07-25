@@ -28,5 +28,8 @@ class AlfaHandler:
         mileage = self.replace_all(mileage)
         return mileage
 
+    def create_url(self, url):
+        return self.replace_all(url)
+
     def replace_all(self, text):
-        return text.replace("рублей с НДС", "").replace(" ", "").replace("\xa0", "").replace("км", "")
+        return text.replace("рублей с НДС", "").replace(" ", "").replace("\xa0", "").replace("км", "").replace('amp;', '')
