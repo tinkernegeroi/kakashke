@@ -1,12 +1,13 @@
 import asyncio
 
 class AlfaService():
-    def __init__(self, parser, handler):
+    def __init__(self, parser, handler, url):
         self.parser = parser
         self.handler = handler
+        self.base_url = url
 
-    async def parse_page(self, target_url):
-        items = await self.parser.get_items_from_tg(target_url)
+    async def parse_page(self):
+        items = await self.parser.get_items_from_tg(self.base_url)
         for item in items:
             message_text = await self.parser.get_item_text(item, ".tgme_widget_message_text")
             type = self.handler.get_type(message_text)
