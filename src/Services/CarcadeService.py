@@ -16,13 +16,17 @@ class CarcadeService:
                 year = self.handler.get_year_from_text(text)
                 city = self.handler.get_city_from_text(text)
                 mileage = self.handler.get_mileage_from_text(text)
+                url = await self.parser.get_href(item, "div.tgme_widget_message.text_not_supported_wrap.js-widget_message > div.tgme_widget_message_bubble > div.tgme_widget_message_text.js-message_text.before_footer > div > a:nth-child(1)")
+
                 result = {
                     "title": title,
                     "price": price,
                     "year": year,
                     "city": city,
-                    "mileage": mileage
+                    "mileage": mileage,
+                    "url": url
                 }
+
                 print(result)
             else:
                 continue
