@@ -3,7 +3,7 @@ from typing import Generic, Type, Sequence, Dict, Any
 from sqlalchemy import select, Result, func, exists, Select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.typess import ID, ModelType
+from src.Types import ID, ModelType
 from src.exceptions import NotFoundRecord
 
 
