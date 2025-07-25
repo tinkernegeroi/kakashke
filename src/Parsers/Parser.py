@@ -29,3 +29,6 @@ class Parser(ABC):
 
     @abstractmethod
     async def scroll_up(self): ...
+
+    @abstractmethod
+    async def get_items_from_tg(self, target_url): ...

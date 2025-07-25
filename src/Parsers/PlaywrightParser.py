@@ -59,4 +59,11 @@ class PlaywrightParser(Parser):
     async def scroll_up(self):
         for i in range(3):
             await self.page.evaluate("window.scrollTo(0, -100000)")
-            await asyncio.sleep(10)
+            await asyncio.sleep(5)
+
+    async def get_items_from_tg(self, target_url):
+        await self.go_to_page(target_url)
+        await self.scroll_up()
+        await self.wait_for_selector(".tgme_container")
+        items = await self.get_all_by_selector(".tgme_widget_message_wrap")
+        return items
