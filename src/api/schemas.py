@@ -1,27 +1,20 @@
-# import uuid
-# from datetime import datetime
-#
-# from pydantic import BaseModel, EmailStr
-#
-#
-#
-# class UserBase(BaseModel):
-#
-#
-#
-# class UserCreate(UserBase):
-#     password: str | bytes
-#
-# class UserRead(UserBase):
-#     id: uuid.UUID
-#     created_at: datetime
-#     updated_at: datetime
-#
-# class UserUpdate(UserBase):
-#     email: EmailStr | None = None
-#     status: StatusEnum | None = None
-#     password: str | bytes | None = None
-#
-# class UserLogin(BaseModel):
-#     email: EmailStr
-#     password: str
+from pydantic import BaseModel
+
+
+class FilterBase(BaseModel):
+    car_title: str
+    price_up_to: int
+    mileage_up_to: int
+    year_from: int
+
+class FilterCreate(FilterBase):
+    pass
+
+class FilterRead(FilterBase):
+    id: int
+
+class FilterUpdate(BaseModel):
+    car_title: str | None = None
+    price_up_to: int | None = None
+    mileage_up_to: int | None = None
+    year_from: int | None = None
