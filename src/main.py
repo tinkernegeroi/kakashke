@@ -1,47 +1,33 @@
-import asyncio
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 
-from src.Handlers.AlfaHandler import AlfaHandler
-from src.Handlers.CarcadeHandler import CarcadeHandler
-from src.Handlers.GazpromHandler import GazpromHandler
-from src.Services.CarcadeService import CarcadeService
-from src.Services.GazpromService import GazpromService
-from src.Handlers.VTBHandler import VTBHandler
-from src.Services.VTBService import VTBService
-from src.Parsers.PlaywrightParser import PlaywrightParser
-from src.Services.AlfaService import AlfaService
+from src.exceptions import AppException
+from src.api.router import router
 
 
-async def main():
-    vtb_base_url = "https://www.vtb-leasing.ru/auto-market/f/type-is-4/?PAGEN_1"
-    gazprom_baze_url = "https://autogpbl.ru/avtomobili-i-tekhnika-s-probegom/?filter-type=4"
-    alfa_url = "https://t.me/s/alfaleasing_probeg"
-    carcade_url = "https://t.me/s/CarcadeStock"
+app = FastAPI()
 
-    # async with PlaywrightParser(vtb_base_url) as parser:
-    #     handler = VTBHandler()
-    #     service = VTBService(parser, handler, vtb_base_url)
-    #     data = await service.parse_all()
-    #     for car in data:
-    #         print(car)
-    #
-    # async with PlaywrightParser(gazprom_baze_url) as parser:
-    #     handler = GazpromHandler()
-    #     service = GazpromService(parser, handler, gazprom_baze_url)
-    #     data = await service.parse_n_pages(gazprom_baze_url, 5)
-    #     for car in data:
-    #         print(car)
-    #
-    # async with PlaywrightParser(alfa_url) as parser:
-    #     handler = AlfaHandler()
-    #     tg_parser = AlfaService(parser, handler, alfa_url)
-    #     await tg_parser.parse_page()
+origins = [
+    "http://localhost",
+    "http://localhost:5173",
+    "http://127.0.0.1",
+    "http://127.0.0.1:5173",
+]
 
-    async with PlaywrightParser(carcade_url) as parser:
-        handler = CarcadeHandler()
-        tg_parser = CarcadeService(parser, handler, carcade_url)
-        await tg_parser.parse_page(carcade_url)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
+app.include_router(router, prefix="/api")
 
-
-if __name__ == "__main__":
-    asyncio.run(main())
+@app.exception_handler(AppException)
+async def app_exception_handler(request: Request, exc: AppException):
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={"detail": exc.message},
+    )
