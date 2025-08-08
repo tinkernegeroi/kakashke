@@ -1,6 +1,6 @@
 services:
   backend:
-    build: .
+    build: src
     container_name: backend_basis
     ports:
       - "8000:8000"

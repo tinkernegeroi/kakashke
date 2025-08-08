@@ -3,7 +3,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class CommonSettings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=".env.backend",
+        env_file="../.env.backend",
         extra="allow"
     )
 
