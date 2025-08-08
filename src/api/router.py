@@ -1,3 +1,5 @@
+import asyncio
+
 from fastapi import APIRouter
 from fastapi.params import Depends
 
@@ -7,7 +9,13 @@ from src.database.base_repository import BaseRepository
 from src.database.models import Filter
 from src.pagination import PaginationParams, Pagination
 
+from src.celery_app import celery_app
+
 router = APIRouter()
+
+@celery_app.task
+def call_parser_endpoint():
+    asyncio.run(_call_async_endpoint())
 
 @router.post("/filter/create")
 async def create_filter(filter: FilterCreate, filter_repository: BaseRepository[Filter] = Depends(get_filter_repository)):
@@ -37,3 +45,6 @@ async def update_filter(id: int, filter: FilterUpdate, filter_repository: BaseRe
 @router.delete('/filter/{id}')
 async def delete_filter(id: int, filter_repository: BaseRepository[Filter] = Depends(get_filter_repository)):
     return await filter_repository.delete(id)
+
+def _call_async_endpoint():
+    pass

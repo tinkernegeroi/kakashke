@@ -7,6 +7,11 @@ class CommonSettings(BaseSettings):
         extra="allow"
     )
 
+class CelerySettings(CommonSettings):
+    celery_app_name: str
+    celery_broker_url: str
+    celery_backend_url: str
+
 class DataBaseSettings(CommonSettings):
     database_url: str
     database_echo: bool
