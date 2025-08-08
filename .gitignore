@@ -1,0 +1,12 @@
+.env
+.venv
+/.idea/.gitignore
+/.idea/dbnavigator.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/Piligrim-Back.iml
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/vcs.xml
+celerybeat-schedule
+celerybeat-schedule-shm
+celerybeat-schedule-wal
